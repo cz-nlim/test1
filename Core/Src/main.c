@@ -102,7 +102,7 @@ int main(void)
       {
         HAL_GPIO_WritePin(LEDG_GPIO_Port, LEDG_Pin, GPIO_PIN_SET);
         HAL_GPIO_WritePin(LEDR_GPIO_Port, LEDR_Pin, GPIO_PIN_RESET);
-        HAL_Delay(1000);
+        HAL_Delay(500);
         HAL_GPIO_WritePin(LEDR_GPIO_Port, LEDR_Pin, GPIO_PIN_SET);
         HAL_Delay(1000);
       }
