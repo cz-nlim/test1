@@ -1,10 +1,16 @@
 
-#include "tim.h"
-
-    uint32_t count=0;
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-    if (htim==&htim1) {
-        count++;
+#include "main.h"
+#include "usart.h"
+extern uint8_t rx_msg[4];
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+    if (huart==&huart7){
+        if (rx_msg[0]=='R') {
+            HAL_GPIO_WritePin(LEDR_GPIO_Port, LEDR_Pin, GPIO_PIN_RESET);
+        }
+        if (rx_msg[0]=='M') {
+            HAL_GPIO_WritePin(LEDR_GPIO_Port, LEDR_Pin, GPIO_PIN_SET);
+        }
+        HAL_UART_Receive_IT(&huart7, rx_msg, 1);
     }
 }
 // Created by 29528 on 2025/10/2.
