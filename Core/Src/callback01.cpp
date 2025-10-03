@@ -1,17 +1,13 @@
-
+#include <cstring>
 #include "main.h"
 #include "usart.h"
 extern uint8_t rx_msg[4];
+uint8_t buffer[4];
+
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
-    if (huart==&huart7){
-        if (rx_msg[0]=='R') {
-            HAL_GPIO_WritePin(LEDR_GPIO_Port, LEDR_Pin, GPIO_PIN_RESET);
-        }
-        if (rx_msg[0]=='M') {
-            HAL_GPIO_WritePin(LEDR_GPIO_Port, LEDR_Pin, GPIO_PIN_SET);
-        }
-        HAL_UART_Receive_IT(&huart7, rx_msg, 1);
+    if (huart == &huart7) {
+        HAL_UART_Receive_IT(&huart7, rx_msg, 3);
+        memcpy(buffer, rx_msg, 3);
+        HAL_UART_Transmit_IT(&huart7, buffer, 10);
     }
 }
-// Created by 29528 on 2025/10/2.
-//

@@ -24,7 +24,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-uint8_t rx_msg[4];
+uint8_t rx_msg[10];
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -91,8 +91,8 @@ int main(void)
   MX_TIM1_Init();
   MX_UART7_Init();
   /* USER CODE BEGIN 2 */
+  HAL_UART_Receive_IT(&huart7, rx_msg, 3);
 
-  HAL_UART_Receive_IT(&huart7, rx_msg, 1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
