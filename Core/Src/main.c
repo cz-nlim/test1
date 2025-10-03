@@ -45,7 +45,7 @@ CAN_FilterTypeDef filter_config={
   .FilterActivation=ENABLE
 };
 uint8_t rx_data[8];
-uint8_t tx_data[8]={0,0,0,0,0,0,0,0x000000C0};
+uint8_t tx_data[8];
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/

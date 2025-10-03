@@ -34,7 +34,8 @@ enable_language(C ASM)
 # Create an executable object type
 add_executable(${CMAKE_PROJECT_NAME}
         Core/Src/callback01.cpp
-        Core/Inc/motorclass.h)
+        Core/Inc/motorclass.h
+        Drivers/STM32F4xx_HAL_Driver/Src/.idea/motorclass.cpp)
 
 # Add STM32CubeMX generated sources
 add_subdirectory(cmake/stm32cubemx)

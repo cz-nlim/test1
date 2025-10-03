@@ -881,6 +881,11 @@
                 </FileArmAds>
               </FileOption>
             </File>
+            <File>
+              <FileName>motorclass.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Core\Inc\motorclass.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
