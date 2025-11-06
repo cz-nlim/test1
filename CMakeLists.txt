@@ -37,7 +37,9 @@ add_executable(${CMAKE_PROJECT_NAME}
         Core/Inc/motorclass.h
         Drivers/STM32F4xx_HAL_Driver/Src/.idea/motorclass.cpp
         Core/Inc/pid.h
-        Core/Src/pid.cpp)
+        Core/Src/pid.cpp
+        Core/Src/motorclass.cpp
+        Core/Src/.idea/current.c)
 
 # Add STM32CubeMX generated sources
 add_subdirectory(cmake/stm32cubemx)

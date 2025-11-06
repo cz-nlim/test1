@@ -20,14 +20,13 @@
 #include "main.h"
 #include "can.h"
 #include "tim.h"
-#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 CAN_RxHeaderTypeDef rx_header;
 CAN_TxHeaderTypeDef tx_header={
-  .StdId=0x200,
+  .StdId=0x201,
   .ExtId=0,
   .IDE=CAN_ID_STD,
   .RTR=CAN_RTR_DATA,
@@ -45,7 +44,12 @@ CAN_FilterTypeDef filter_config={
   .FilterActivation=ENABLE
 };
 uint8_t rx_data[8];
-uint8_t tx_data[8];
+uint8_t tx_data[8]={0};
+uint32_t can_tx_mail_box_;
+uint8_t stop_flag=1;
+uint8_t a=0;
+int16_t intensity;
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -110,7 +114,6 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_TIM1_Init();
-  MX_UART7_Init();
   MX_CAN1_Init();
   MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
@@ -122,9 +125,21 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-
+  while (1) {
+    GPIO_PinState State=HAL_GPIO_ReadPin(KEY_GPIO_Port, KEY_Pin);
+    HAL_Delay(50);
+    if (State==GPIO_PIN_SET) {
+      a=(a+1)%2;
+      if (a==1) {
+        stop_flag=1;
+      }
+      else {
+        stop_flag=0;
+      }
+      if (stop_flag==1){
+        tx_data[0]=0;
+        tx_data[1]=0;
+      }
     }
 
     /* USER CODE END WHILE */
@@ -198,11 +213,11 @@ void SystemClock_Config(void)
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
-  __disable_irq();
-  while (1)
-  {
-  }
+    /* User can add his own implementation to report the HAL error return state */
+    __disable_irq();
+    while (1)
+    {
+    }
   /* USER CODE END Error_Handler_Debug */
 }
 #ifdef USE_FULL_ASSERT
@@ -216,8 +231,8 @@ void Error_Handler(void)
 void assert_failed(uint8_t *file, uint32_t line)
 {
   /* USER CODE BEGIN 6 */
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
